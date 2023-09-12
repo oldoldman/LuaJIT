@@ -509,6 +509,11 @@ void lj_lex_init(lua_State *L)
     GCstr *s = lj_str_newz(L, tokennames[i]);
     fixstring(s);  /* Reserved words are never collected. */
     s->reserved = (uint8_t)(i+1);
+    if(i+TK_and==TK_function) {
+      s = lj_str_newz(L, "fn");
+      fixstring(s);
+      s->reserved = (uint8_t)(i+1);
+    }
   }
 }
 
